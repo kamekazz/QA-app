@@ -12,7 +12,7 @@ const index = ({ navigation }) => {
       <Button
         title="go to incoming sample"
         color={COLORS.secondary}
-        onPress={() => navigation.navigate("IncomingScreen")}
+        onPress={() => navigation.navigate("IncomingSampleNavigator")}
       />
     </ContainerEl>
   );

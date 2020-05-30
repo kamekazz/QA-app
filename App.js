@@ -4,7 +4,7 @@ import { Platform, StatusBar, View, Text } from "react-native";
 import { Provider } from "react-redux";
 import { store } from "./store";
 
-import RootNavigator from "./Router/rootRouter";
+import { RootNavigator } from "./Router/rootRouter";
 import { COLORS } from "./constants/Colors";
 
 export default function App(props) {

@@ -8,10 +8,27 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { COLORS } from "../constants/Colors";
 import HomeScreen from "../components/screens/HomeScreen";
 import IncomingSample from "../components/screens/IncomingSample";
+import AddModel from "../components/screens/IncomingSample/AddModel";
 
 const UserStackNavigator = createStackNavigator();
+const IncomingSampleStack = createStackNavigator();
 
-const RootNavigator = () => (
+const IncomingSampleNavigator = () => (
+  <IncomingSampleStack.Navigator>
+    <IncomingSampleStack.Screen
+      name="IncomingScreen"
+      component={IncomingSample}
+      options={{ headerTitle: "Incoming Sample" }}
+    />
+    <IncomingSampleStack.Screen
+      name="AddModel(1)"
+      component={AddModel}
+      options={{ headerShown: false }}
+    />
+  </IncomingSampleStack.Navigator>
+);
+
+export const RootNavigator = () => (
   <NavigationContainer>
     <UserStackNavigator.Navigator
       screenOptions={{
@@ -27,12 +44,10 @@ const RootNavigator = () => (
         options={{ headerTitle: "Options" }}
       />
       <UserStackNavigator.Screen
-        name="IncomingScreen"
-        component={IncomingSample}
-        options={{ headerTitle: "Incoming Sample" }}
+        name="IncomingSampleNavigator"
+        component={IncomingSampleNavigator}
+        options={{ headerShown: false }}
       />
     </UserStackNavigator.Navigator>
   </NavigationContainer>
 );
-
-export default RootNavigator;

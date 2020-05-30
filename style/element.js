@@ -5,6 +5,11 @@ export const TextEl = styled.Text`
   font-size: 18px;
   color: ${COLORS.text};
 `;
+
+export const H1 = styled(TextEl)`
+  font-size: 18px;
+  color: ${COLORS.text};
+`;
 ////////////////////////////////////
 export const GridEl = styled.View``;
 

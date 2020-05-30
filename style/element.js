@@ -7,9 +7,21 @@ export const TextEl = styled.Text`
 `;
 
 export const H1 = styled(TextEl)`
-  font-size: 18px;
+  font-size: 32px;
+  color: ${COLORS.text};
+  font-weight: 900;
+`;
+
+export const H2 = styled(TextEl)`
+  font-size: 24px;
   color: ${COLORS.text};
 `;
+
+export const H3 = styled(TextEl)`
+  font-size: 18.72px;
+  color: ${COLORS.text};
+`;
+
 ////////////////////////////////////
 export const GridEl = styled.View``;
 

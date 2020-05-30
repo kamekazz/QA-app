@@ -20,6 +20,12 @@ export const BOX_SHADOW = css`
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 `;
 
+export const DEBUG_BOX = css`
+  background-color: yellow;
+  border-color: red;
+  border-width: 3px;
+`;
+
 export const ULTRA_CENTER = css`
   justify-content: center;
   align-items: center;

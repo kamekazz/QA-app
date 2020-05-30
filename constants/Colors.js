@@ -1,7 +1,7 @@
 export const COLORS = {
   bg: "#f0f3f5",
-  primary: "#4775f2",
-  secondary: "#546bfb",
+  primary: "#337ab7",
+  secondary: "#4daa50",
   text: "#3c4560",
   warning: "#EAEB5E",
   error: "#ff0000",

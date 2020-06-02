@@ -33,3 +33,14 @@ export const ContainerEl = styled.View`
   justify-content: center;
   align-items: center;
 `;
+
+export const InputEL = styled.TextInput`
+  background-color: lightgray;
+  border-color: gray;
+  border-width: 2px;
+  border-radius: 3px;
+  padding: 0 12px;
+  font-size: 30px;
+  letter-spacing: 3px;
+  color: ${COLORS.secondary};
+`;

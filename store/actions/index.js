@@ -16,39 +16,30 @@ export const clearUser = () => {
   };
 };
 
-/* Channel Actions */
-export const setCurrentChannel = (channel) => {
+/* incoming item */
+export const acAddIncomingItem = (_itemData) => {
   return {
-    type: actionTypes.SET_CURRENT_CHANNEL,
+    type: actionTypes.ADD_INCOMING_ITEM,
     payload: {
-      currentChannel: channel,
+      item: _itemData,
     },
   };
 };
 
-export const setPrivateChannel = (isPrivateChannel) => {
+export const acAddIncomingItemPo = (_po) => {
   return {
-    type: actionTypes.SET_PRIVATE_CHANNEL,
+    type: actionTypes.ADD_INCOMING_ITEM_PO,
     payload: {
-      isPrivateChannel,
+      poNumber: _po,
     },
   };
 };
 
-export const setUserPosts = (userPosts) => {
+export const acAddIncomingItemContainer = (_containerId) => {
   return {
-    type: actionTypes.SET_USER_POSTS,
+    type: actionTypes.ADD_INCOMING_ITEM_CONTAINER,
     payload: {
-      userPosts,
-    },
-  };
-};
-/* Colors Action function */
-export const setMenu = (value) => {
-  return {
-    type: actionTypes.SET_MENU_ACTION,
-    payload: {
-      action: value,
+      containerId: _containerId,
     },
   };
 };

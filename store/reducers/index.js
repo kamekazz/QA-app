@@ -23,62 +23,38 @@ const user_reducer = (state = initialUserState, action) => {
   }
 };
 //////////////////////////////////////////////////////////////////
-const initialChannelState = {
-  currentChannel: null,
-  isPrivateChannel: false,
-  userPosts: null,
+const incomingItemState = {
+  item: null,
+  poNumber: "",
+  containerId: "",
 };
 
-const channel_reducer = (state = initialChannelState, action) => {
+const incoming_item_reducer = (state = incomingItemState, action) => {
   switch (action.type) {
-    case actionTypes.SET_CURRENT_CHANNEL:
+    case actionTypes.ADD_INCOMING_ITEM:
       return {
         ...state,
-        currentChannel: action.payload.currentChannel,
+        item: action.payload.item,
       };
-    case actionTypes.SET_PRIVATE_CHANNEL:
+    case actionTypes.ADD_INCOMING_ITEM_PO:
       return {
         ...state,
-        isPrivateChannel: action.payload.isPrivateChannel,
+        poNumber: action.payload.poNumber,
       };
-    case actionTypes.SET_USER_POSTS:
+    case actionTypes.ADD_INCOMING_ITEM_CONTAINER:
       return {
         ...state,
-        userPosts: action.payload.userPosts,
+        containerId: action.payload.containerId,
       };
     default:
       return state;
   }
 };
 //////////////////////////////////////////////////////////////////
-const initialColorsState = {
-  primaryColor: "#4c3c4c",
-  secondaryColor: "#eee",
-  action: "closeMenu",
-};
-
-const colors_reducer = (state = initialColorsState, action) => {
-  switch (action.type) {
-    case actionTypes.SET_COLORS:
-      return {
-        primaryColor: action.payload.primaryColor,
-        secondaryColor: action.payload.secondaryColor,
-      };
-    case actionTypes.SET_MENU_ACTION:
-      return {
-        ...state,
-        action: action.payload.action,
-      };
-    default:
-      return state;
-  }
-};
-////////////////////////////
 
 const rootReducer = combineReducers({
   user: user_reducer,
-  channel: channel_reducer,
-  colors: colors_reducer,
+  incoming: incoming_item_reducer,
 });
 
 export default rootReducer;

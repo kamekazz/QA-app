@@ -2,11 +2,7 @@
 export const SET_USER = "SET_USER";
 export const CLEAR_USER = "CLEAR_USER";
 
-/* Channel Action Types */
-export const SET_CURRENT_CHANNEL = "SET_CURRENT_CHANNEL";
-export const SET_PRIVATE_CHANNEL = "SET_PRIVATE_CHANNEL";
-export const SET_USER_POSTS = "SET_USER_POSTS";
-
-/* Colors Action Types */
-export const SET_COLORS = "SET_COLORS";
-export const SET_MENU_ACTION = "SET_MENU_ACTION";
+/* incoming item */
+export const ADD_INCOMING_ITEM = "ADD_INCOMING_ITEM";
+export const ADD_INCOMING_ITEM_PO = "ADD_INCOMING_ITEM_PO";
+export const ADD_INCOMING_ITEM_CONTAINER = "ADD_INCOMING_ITEM_CONTAINER";

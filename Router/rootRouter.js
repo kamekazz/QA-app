@@ -9,6 +9,8 @@ import { COLORS } from "../constants/Colors";
 import HomeScreen from "../components/screens/HomeScreen";
 import IncomingSample from "../components/screens/IncomingSample";
 import AddModel from "../components/screens/IncomingSample/AddModel";
+import ContainerInfo from "../components/screens/IncomingSample/AddModel/ContainerInfo";
+import MSbarCodeScanner from "../components/screens/IncomingSample/AddModel/MSbarCodeScanner";
 
 const UserStackNavigator = createStackNavigator();
 const IncomingSampleStack = createStackNavigator();
@@ -23,6 +25,16 @@ const IncomingSampleNavigator = () => (
     <IncomingSampleStack.Screen
       name="AddModel(1)"
       component={AddModel}
+      options={{ headerShown: false }}
+    />
+    <IncomingSampleStack.Screen
+      name="AddModel(2)"
+      component={ContainerInfo}
+      options={{ headerShown: false }}
+    />
+    <IncomingSampleStack.Screen
+      name="MSbarCodeScanner"
+      component={MSbarCodeScanner}
       options={{ headerShown: false }}
     />
   </IncomingSampleStack.Navigator>

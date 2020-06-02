@@ -6,10 +6,13 @@ import { DEBUG_BOX } from "../../../../style/globalStyle";
 import styled from "styled-components/native";
 import { gbStyle } from "../../../../style/globalStyle";
 import { COLORS } from "../../../../constants/Colors";
+import { salsifyApi } from "../../../../services/salsifyApi";
+import { acAddIncomingItem } from "../../../../store/actions";
 
 export class index extends Component {
   state = {
     lodging: false,
+    itemNumber: 139450,
   };
   componentWillMount() {
     this.keyboardDidHideListener = Keyboard.addListener(
@@ -24,8 +27,25 @@ export class index extends Component {
 
   _keyboardDidHide = () => {
     // alert("Keyboard Hidden");
-    this.setState({ lodging: true });
+    this.setState({ lodging: true }, this.getItemData());
   };
+
+  getItemData = () => {
+    salsifyApi
+      .get(`/${this.state.itemNumber}`)
+      .then((res) => {
+        this.props.acAddIncomingItem(res.data);
+        this.props.navigation.navigate("AddModel(2)");
+      })
+      .catch((err) => {
+        console.log("err", err);
+        this.setState({ lodging: false });
+        alert(
+          "err: The 401 Unauthorized Error is an HTTP response status code indicating that the request sent by the client could not be authenticated. ..."
+        );
+      });
+  };
+
   render() {
     return (
       <Container center={this.state.lodging}>
@@ -45,6 +65,8 @@ export class index extends Component {
                   numberOfLines={1}
                   keyboardType="number-pad"
                   onSubmitEditing={Keyboard.dismiss}
+                  value={this.state.itemNumber}
+                  onChangeText={(_text) => this.setState({ itemNumber: _text })}
                 />
               </From>
             </Top>
@@ -59,7 +81,7 @@ export class index extends Component {
 
 const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { acAddIncomingItem };
 
 export default connect(mapStateToProps, mapDispatchToProps)(index);
 

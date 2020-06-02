@@ -55,7 +55,7 @@ class ContainerInfo extends Component {
     if (_index == 2) {
       this.props.acAddIncomingItemContainer(this.state.answers);
       this.setState({ answers: "" }, () => {
-        // this.props.navigation.push("MSbarCodeScanner");
+        this.props.navigation.push("MSbarCodeScanner");
       });
     }
   };
@@ -120,11 +120,19 @@ class ContainerInfo extends Component {
             value={this.state.answers}
             onChangeText={(_text) => this.setState({ answers: _text })}
           />
-          <Button
-            title="submit"
-            onPress={() => this.handleAnswer()}
-            color={COLORS.secondary}
-          />
+          {this.state.index < 2 ? (
+            <Button
+              title="submit"
+              onPress={() => this.handleAnswer()}
+              color={COLORS.secondary}
+            />
+          ) : (
+            <Button
+              title="Next"
+              onPress={() => this.props.navigation.push("MSbarCodeScanner")}
+              color={COLORS.secondary}
+            />
+          )}
         </Top>
         <ProgressBarContainer>
           <AnimatedProgressBar style={progressStyle} />

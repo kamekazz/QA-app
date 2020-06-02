@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Keyboard, ActivityIndicator } from "react-native";
+import { View, Keyboard, ActivityIndicator, Button } from "react-native";
 import { connect } from "react-redux";
 import { ContainerEl, H1, H3, TextEl } from "../../../../style/element";
 import { DEBUG_BOX } from "../../../../style/globalStyle";
@@ -14,16 +14,6 @@ export class index extends Component {
     lodging: false,
     itemNumber: 139450,
   };
-  componentWillMount() {
-    this.keyboardDidHideListener = Keyboard.addListener(
-      "keyboardDidHide",
-      this._keyboardDidHide
-    );
-  }
-
-  componentWillUnmount() {
-    this.keyboardDidHideListener.remove();
-  }
 
   _keyboardDidHide = () => {
     // alert("Keyboard Hidden");
@@ -64,11 +54,15 @@ export class index extends Component {
                   autoFocus
                   numberOfLines={1}
                   keyboardType="number-pad"
-                  onSubmitEditing={Keyboard.dismiss}
                   value={this.state.itemNumber}
                   onChangeText={(_text) => this.setState({ itemNumber: _text })}
                 />
               </From>
+              <Button
+                title="Next"
+                color={COLORS.secondary}
+                onPress={() => this._keyboardDidHide()}
+              />
             </Top>
           </>
         ) : (
@@ -107,4 +101,5 @@ const ItemInput = styled.TextInput`
   font-size: 30px;
   letter-spacing: 3px;
   color: ${COLORS.secondary};
+  margin-bottom: 12px;
 `;

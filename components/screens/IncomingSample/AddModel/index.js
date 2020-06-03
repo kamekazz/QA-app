@@ -12,7 +12,7 @@ import { acAddIncomingItem } from "../../../../store/actions";
 export class index extends Component {
   state = {
     lodging: false,
-    itemNumber: 139450,
+    itemNumber: "",
   };
 
   _keyboardDidHide = () => {

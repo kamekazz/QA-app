@@ -3,15 +3,16 @@ import { Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
-import { TextEl, H1 } from "../../../../style/element";
+import { H1 } from "../../../../style/element";
 import { COLORS } from "../../../../constants/Colors";
-import { DEBUG_BOX } from "../../../../style/globalStyle";
+
 import { getMSBarcodeCode } from "../../../../Utils/helperFunctions";
 
 function MSbarCodeScanner({ itemData, navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [goodMach, setGoodMach] = useState(false);
+
   const [barcodeNumber, setBarcodeNumber] = useState("");
 
   useEffect(() => {
@@ -73,7 +74,10 @@ function MSbarCodeScanner({ itemData, navigation }) {
       {goodMach && (
         <Button
           title="Next Step"
-          onPress={() => navigation.navigate("AddModel(2)")}
+          onPress={() => {
+            setScanned(true);
+            navigation.navigate("AddModel(4)");
+          }}
           color={COLORS.secondary}
         />
       )}

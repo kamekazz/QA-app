@@ -11,6 +11,7 @@ import IncomingSample from "../components/screens/IncomingSample";
 import AddModel from "../components/screens/IncomingSample/AddModel";
 import ContainerInfo from "../components/screens/IncomingSample/AddModel/ContainerInfo";
 import MSbarCodeScanner from "../components/screens/IncomingSample/AddModel/MSbarCodeScanner";
+import MSBoxQuestions from "../components/screens/IncomingSample/AddModel/MSBoxQuestions";
 
 const UserStackNavigator = createStackNavigator();
 const IncomingSampleStack = createStackNavigator();
@@ -35,6 +36,11 @@ const IncomingSampleNavigator = () => (
     <IncomingSampleStack.Screen
       name="MSbarCodeScanner"
       component={MSbarCodeScanner}
+      options={{ headerShown: false }}
+    />
+    <IncomingSampleStack.Screen
+      name="AddModel(4)"
+      component={MSBoxQuestions}
       options={{ headerShown: false }}
     />
   </IncomingSampleStack.Navigator>

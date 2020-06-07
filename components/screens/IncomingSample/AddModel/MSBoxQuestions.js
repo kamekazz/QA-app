@@ -32,6 +32,10 @@ class MSBoxQuestions extends Component {
     renderQuantityOnLabelQuestions: false,
     quantityAnswer: false,
     quantity: 0,
+    renderTextInputQuantity: false,
+    ////////////////////////
+    renderP65OnMs_Questions: false,
+    p65OnMs_Answer: false,
   };
 
   handleAliasAnswer = (_value) => {
@@ -64,7 +68,7 @@ class MSBoxQuestions extends Component {
       </>
     );
   };
-
+  ////////////////////////////////////////
   handleGraphicAnswer = (_value) => {
     this.setState({
       renderGraphicQuestions: false,
@@ -105,7 +109,7 @@ class MSBoxQuestions extends Component {
       </>
     );
   };
-
+  /////////////////////////////////////////
   handleDescriptionAnswer = (_value) => {
     this.setState({
       renderDescriptionQuestions: false,
@@ -136,7 +140,7 @@ class MSBoxQuestions extends Component {
       </>
     );
   };
-
+  //////////////////////////////////////////
   handleWeightCubicAnswer = (_value) => {
     if (_value) {
       this.setState({
@@ -219,19 +223,30 @@ class MSBoxQuestions extends Component {
       </View>
     );
   };
-
+  //////////////////////////////////////////
   handleQuantityOnLabelAnswer = (_value) => {
     if (_value) {
       this.setState({
         renderQuantityOnLabelQuestions: false,
-        weightCubicAnswer: true,
+        quantityAnswer: true,
+        renderP65OnMs_Questions: true,
       });
-      alert("next question");
     } else {
       this.setState({
-        renderTextInputWeightCubic: true,
+        renderTextInputQuantity: true,
         weightCubicAnswer: false,
       });
+    }
+  };
+
+  handleNewQuantityValue = () => {
+    if (this.state.quantity) {
+      this.setState({
+        renderQuantityOnLabelQuestions: false,
+        renderP65OnMs_Questions: true,
+      });
+    } else {
+      alert(`need to fill all text input`);
     }
   };
 
@@ -245,17 +260,17 @@ class MSBoxQuestions extends Component {
             (Unt:{quantity})
           </H2>
         </ActionContainer>
-        {!this.state.renderTextInputWeightCubic ? (
+        {!this.state.renderTextInputQuantity ? (
           <ActionContainer>
             <Button
               title="no"
               color={COLORS.error}
-              onPress={() => this.handleWeightCubicAnswer(false)}
+              onPress={() => this.handleQuantityOnLabelAnswer(false)}
             />
             <Button
               title="yes"
               color={COLORS.secondary}
-              onPress={() => this.handleWeightCubicAnswer(true)}
+              onPress={() => this.handleQuantityOnLabelAnswer(true)}
             />
           </ActionContainer>
         ) : (
@@ -266,22 +281,40 @@ class MSBoxQuestions extends Component {
                 numberOfLines={1}
                 keyboardType="number-pad"
                 style={{ width: 125 }}
-                onChangeText={(_text) => this.setState({ cubic: _text })}
-              />
-              <InputEL
-                numberOfLines={1}
-                keyboardType="number-pad"
-                style={{ width: 125 }}
-                onChangeText={(_text) => this.setState({ weight: _text })}
+                onChangeText={(_text) => this.setState({ quantity: _text })}
               />
             </ActionContainer>
             <Button
               title="Summit"
-              onPress={() => this.handleNewWeightCubicValue()}
+              onPress={() => this.handleNewQuantityValue()}
             />
           </>
         )}
       </View>
+    );
+  };
+  //////////////////////////////////////////////
+
+  renderP65OnMs_Questions = () => {
+    return (
+      <>
+        <QuestionText>Is the prop 65 label on the MS packaging</QuestionText>
+        <H2 style={{ textAlign: "center", marginBottom: 12 }}>
+          {this.props.itemData.title.title.values[0].id}
+        </H2>
+        <ActionContainer>
+          <Button
+            title="no"
+            color={COLORS.error}
+            onPress={() => this.handleDescriptionAnswer(false)}
+          />
+          <Button
+            title="yes"
+            color={COLORS.secondary}
+            onPress={() => this.handleDescriptionAnswer(true)}
+          />
+        </ActionContainer>
+      </>
     );
   };
 
@@ -299,6 +332,7 @@ class MSBoxQuestions extends Component {
           this.renderWeightCubicQuestions()}
         {this.state.renderQuantityOnLabelQuestions &&
           this.renderQuantityOnLabelQuestions()}
+        {this.state.renderP65OnMs_Questions && this.renderP65OnMs_Questions()}
       </Container>
     );
   }

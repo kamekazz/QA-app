@@ -3,11 +3,12 @@ import { View, Text, Button, Image } from "react-native";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
 import { COLORS } from "../../../../constants/Colors";
-import { H1, H3, H2 } from "../../../../style/element";
+import { H1, H3, H2, InputEL } from "../../../../style/element";
 import {
   getAlias,
   getImageSalsify,
   getWeightAndCubic,
+  getMS_Quantity,
 } from "../../../../Utils/helperFunctions";
 import { WINDOW_WIDTH } from "../../../../style/globalStyle";
 
@@ -15,12 +16,22 @@ class MSBoxQuestions extends Component {
   state = {
     renderAliasQuestions: true,
     aliasAnswer: false,
+    /////////////////////
     renderGraphicQuestions: false,
     graphicAnswer: false,
+    //////////////////////////////////
     renderDescriptionQuestions: false,
     descriptionAnswer: false,
+    //////////////////////////
     renderWeightCubicQuestions: false,
     weightCubicAnswer: false,
+    renderTextInputWeightCubic: false,
+    cubic: 0,
+    weight: 0,
+    ////////////////////////
+    renderQuantityOnLabelQuestions: false,
+    quantityAnswer: false,
+    quantity: 0,
   };
 
   handleAliasAnswer = (_value) => {
@@ -127,10 +138,29 @@ class MSBoxQuestions extends Component {
   };
 
   handleWeightCubicAnswer = (_value) => {
-    this.setState({
-      renderDescriptionQuestions: false,
-      descriptionAnswer: _value,
-    });
+    if (_value) {
+      this.setState({
+        renderWeightCubicQuestions: false,
+        quantityAnswer: true,
+        renderQuantityOnLabelQuestions: true,
+      });
+    } else {
+      this.setState({
+        renderTextInputWeightCubic: true,
+        weightCubicAnswer: false,
+      });
+    }
+  };
+
+  handleNewWeightCubicValue = () => {
+    if (this.state.cubic && this.state.weight) {
+      this.setState({
+        renderWeightCubicQuestions: false,
+        renderQuantityOnLabelQuestions: true,
+      });
+    } else {
+      alert("need to fill all text input");
+    }
   };
 
   renderWeightCubicQuestions = () => {
@@ -142,24 +172,115 @@ class MSBoxQuestions extends Component {
         <QuestionText>
           Are the weight and cubic size correct on the label?
         </QuestionText>
-        <H2 style={{ textAlign: "center", marginBottom: 12 }}>
-          (Cubic:{resultCubic})
-        </H2>
-        <H2 style={{ textAlign: "center", marginBottom: 12 }}>
-          (Weight:{resultWeight})
-        </H2>
         <ActionContainer>
-          <Button
-            title="no"
-            color={COLORS.error}
-            onPress={() => this.handleDescriptionAnswer(false)}
-          />
-          <Button
-            title="yes"
-            color={COLORS.secondary}
-            onPress={() => this.handleDescriptionAnswer(true)}
-          />
+          <H2 style={{ textAlign: "center", marginBottom: 12 }}>
+            (Cubic:{resultCubic})
+          </H2>
+          <H2 style={{ textAlign: "center", marginBottom: 12 }}>
+            (Weight:{resultWeight})
+          </H2>
         </ActionContainer>
+        {!this.state.renderTextInputWeightCubic ? (
+          <ActionContainer>
+            <Button
+              title="no"
+              color={COLORS.error}
+              onPress={() => this.handleWeightCubicAnswer(false)}
+            />
+            <Button
+              title="yes"
+              color={COLORS.secondary}
+              onPress={() => this.handleWeightCubicAnswer(true)}
+            />
+          </ActionContainer>
+        ) : (
+          <>
+            <ActionContainer style={{ marginBottom: 12 }}>
+              <InputEL
+                autoFocus
+                numberOfLines={1}
+                keyboardType="number-pad"
+                style={{ width: 125 }}
+                onChangeText={(_text) => this.setState({ cubic: _text })}
+              />
+              <InputEL
+                numberOfLines={1}
+                keyboardType="number-pad"
+                style={{ width: 125 }}
+                onChangeText={(_text) => this.setState({ weight: _text })}
+              />
+            </ActionContainer>
+            <Button
+              title="Summit"
+              onPress={() => this.handleNewWeightCubicValue()}
+            />
+          </>
+        )}
+      </View>
+    );
+  };
+
+  handleQuantityOnLabelAnswer = (_value) => {
+    if (_value) {
+      this.setState({
+        renderQuantityOnLabelQuestions: false,
+        weightCubicAnswer: true,
+      });
+      alert("next question");
+    } else {
+      this.setState({
+        renderTextInputWeightCubic: true,
+        weightCubicAnswer: false,
+      });
+    }
+  };
+
+  renderQuantityOnLabelQuestions = () => {
+    const quantity = getMS_Quantity(this.props.itemData);
+    return (
+      <View style={{ paddingHorizontal: 3 }}>
+        <QuestionText>Is the quantity correct on the label?</QuestionText>
+        <ActionContainer>
+          <H2 style={{ textAlign: "center", marginBottom: 12 }}>
+            (Unt:{quantity})
+          </H2>
+        </ActionContainer>
+        {!this.state.renderTextInputWeightCubic ? (
+          <ActionContainer>
+            <Button
+              title="no"
+              color={COLORS.error}
+              onPress={() => this.handleWeightCubicAnswer(false)}
+            />
+            <Button
+              title="yes"
+              color={COLORS.secondary}
+              onPress={() => this.handleWeightCubicAnswer(true)}
+            />
+          </ActionContainer>
+        ) : (
+          <>
+            <ActionContainer style={{ marginBottom: 12 }}>
+              <InputEL
+                autoFocus
+                numberOfLines={1}
+                keyboardType="number-pad"
+                style={{ width: 125 }}
+                onChangeText={(_text) => this.setState({ cubic: _text })}
+              />
+              <InputEL
+                numberOfLines={1}
+                keyboardType="number-pad"
+                style={{ width: 125 }}
+                onChangeText={(_text) => this.setState({ weight: _text })}
+              />
+            </ActionContainer>
+            <Button
+              title="Summit"
+              onPress={() => this.handleNewWeightCubicValue()}
+            />
+          </>
+        )}
       </View>
     );
   };
@@ -176,6 +297,8 @@ class MSBoxQuestions extends Component {
           this.renderDescriptionQuestion()}
         {this.state.renderWeightCubicQuestions &&
           this.renderWeightCubicQuestions()}
+        {this.state.renderQuantityOnLabelQuestions &&
+          this.renderQuantityOnLabelQuestions()}
       </Container>
     );
   }

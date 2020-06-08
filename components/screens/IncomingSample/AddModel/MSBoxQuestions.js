@@ -295,23 +295,36 @@ class MSBoxQuestions extends Component {
   };
   //////////////////////////////////////////////
 
+  handleP65OnMs_Answer = (_value) => {
+    if (_value) {
+      this.setState({
+        renderP65OnMs_Questions: false,
+        p65OnMs_Answer: true,
+      });
+      alert("next question");
+    } else {
+      this.setState({
+        renderP65OnMs_Questions: false,
+        p65OnMs_Answer: false,
+      });
+      alert("next question");
+    }
+  };
+
   renderP65OnMs_Questions = () => {
     return (
       <>
         <QuestionText>Is the prop 65 label on the MS packaging</QuestionText>
-        <H2 style={{ textAlign: "center", marginBottom: 12 }}>
-          {this.props.itemData.title.title.values[0].id}
-        </H2>
         <ActionContainer>
           <Button
             title="no"
             color={COLORS.error}
-            onPress={() => this.handleDescriptionAnswer(false)}
+            onPress={() => this.handleP65OnMs_Answer(false)}
           />
           <Button
             title="yes"
             color={COLORS.secondary}
-            onPress={() => this.handleDescriptionAnswer(true)}
+            onPress={() => this.handleP65OnMs_Answer(true)}
           />
         </ActionContainer>
       </>

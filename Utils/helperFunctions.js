@@ -58,3 +58,18 @@ export const getMS_Quantity = (_data) => {
   }
   return result;
 };
+
+export const getMS_P65OnMs_Code = (_data) => {
+  let result = {};
+  const arrayData = _data.property_groups[3].properties;
+  for (let i = 0; i < arrayData.length; i++) {
+    const element = arrayData[i];
+    if (element.id == "Prop 65 Letter Description") {
+      result.material = element.values[0].id;
+    }
+    if (element.id == "Prop 65 Warning") {
+      result.description = element.values[0].id;
+    }
+  }
+  return result;
+};

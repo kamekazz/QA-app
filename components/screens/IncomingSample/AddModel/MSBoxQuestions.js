@@ -9,6 +9,7 @@ import {
   getImageSalsify,
   getWeightAndCubic,
   getMS_Quantity,
+  getMS_P65OnMs_Code,
 } from "../../../../Utils/helperFunctions";
 import { WINDOW_WIDTH } from "../../../../style/globalStyle";
 
@@ -36,6 +37,12 @@ class MSBoxQuestions extends Component {
     ////////////////////////
     renderP65OnMs_Questions: false,
     p65OnMs_Answer: false,
+    ////////////////////////
+    renderP65OnMs_Code_Questions: false,
+    p65OnMs_Code_Answer: false,
+    ///////////////////////////////
+    renderCubicScanMs: false,
+    cubicScanMs_Answer: false,
   };
 
   handleAliasAnswer = (_value) => {
@@ -294,20 +301,19 @@ class MSBoxQuestions extends Component {
     );
   };
   //////////////////////////////////////////////
-
   handleP65OnMs_Answer = (_value) => {
     if (_value) {
       this.setState({
         renderP65OnMs_Questions: false,
         p65OnMs_Answer: true,
+        renderP65OnMs_Code_Questions: true,
       });
-      alert("next question");
     } else {
       this.setState({
         renderP65OnMs_Questions: false,
         p65OnMs_Answer: false,
+        renderP65OnMs_Code_Questions: true,
       });
-      alert("next question");
     }
   };
 
@@ -330,7 +336,89 @@ class MSBoxQuestions extends Component {
       </>
     );
   };
+  ////////////////////////////////////////////////////////////
+  handleP65OnMs_Code_Answer = (_value) => {
+    if (_value) {
+      this.setState({
+        renderP65OnMs_Code_Questions: false,
+        p65OnMs_Code_Answer: true,
+      });
+      alert("next question");
+    } else {
+      this.setState({
+        renderP65OnMs_Code_Questions: false,
+        p65OnMs_Code_Answer: false,
+      });
+      alert("next question");
+    }
+  };
 
+  renderP65OnMs_Code_Questions = () => {
+    const { material, description } = getMS_P65OnMs_Code(this.props.itemData);
+    return (
+      <>
+        <QuestionText>Is the prop 65 label description correct?</QuestionText>
+
+        <H2 style={{ textAlign: "center", marginBottom: 12 }}>
+          (material:<H2 style={{ color: COLORS.error }}>{material}</H2>)
+        </H2>
+        <H2 style={{ textAlign: "center", marginBottom: 12 }}>
+          (description:{description})
+        </H2>
+
+        <ActionContainer>
+          <Button
+            title="no"
+            color={COLORS.error}
+            onPress={() => this.handleP65OnMs_Code_Answer(false)}
+          />
+          <Button
+            title="yes"
+            color={COLORS.secondary}
+            onPress={() => this.handleP65OnMs_Code_Answer(true)}
+          />
+        </ActionContainer>
+      </>
+    );
+  };
+  ////////////////////////////////////////////////////////////
+  handleP65OnMs_Code_Answer = (_value) => {
+    if (_value) {
+      this.setState({
+        renderP65OnMs_Code_Questions: false,
+        p65OnMs_Code_Answer: true,
+      });
+      alert("next question");
+    } else {
+      this.setState({
+        renderP65OnMs_Code_Questions: false,
+        p65OnMs_Code_Answer: false,
+      });
+      alert("next question");
+    }
+  };
+
+  renderCubicScanMs = () => {
+    return (
+      <>
+        <QuestionText>Cubic scan this Ms pack</QuestionText>
+
+        <ActionContainer>
+          <Button
+            title="null"
+            color={COLORS.error}
+            onPress={() => this.handleP65OnMs_Code_Answer(false)}
+          />
+          <Button
+            title="Done"
+            color={COLORS.secondary}
+            onPress={() => this.handleP65OnMs_Code_Answer(true)}
+          />
+        </ActionContainer>
+      </>
+    );
+  };
+  ////////////////////////////////////////////////////////////
   render() {
     return (
       <Container>
@@ -346,6 +434,8 @@ class MSBoxQuestions extends Component {
         {this.state.renderQuantityOnLabelQuestions &&
           this.renderQuantityOnLabelQuestions()}
         {this.state.renderP65OnMs_Questions && this.renderP65OnMs_Questions()}
+        {this.state.renderP65OnMs_Code_Questions &&
+          this.renderP65OnMs_Code_Questions()}
       </Container>
     );
   }

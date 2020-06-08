@@ -43,6 +43,9 @@ class MSBoxQuestions extends Component {
     ///////////////////////////////
     renderCubicScanMs: false,
     cubicScanMs_Answer: false,
+    //////////////////////////////
+    renderQualityMsPack: false,
+    qualityMs_Answer: false,
   };
 
   handleAliasAnswer = (_value) => {
@@ -342,14 +345,14 @@ class MSBoxQuestions extends Component {
       this.setState({
         renderP65OnMs_Code_Questions: false,
         p65OnMs_Code_Answer: true,
+        renderCubicScanMs: true,
       });
-      alert("next question");
     } else {
       this.setState({
         renderP65OnMs_Code_Questions: false,
         p65OnMs_Code_Answer: false,
+        renderCubicScanMs: true,
       });
-      alert("next question");
     }
   };
 
@@ -382,17 +385,17 @@ class MSBoxQuestions extends Component {
     );
   };
   ////////////////////////////////////////////////////////////
-  handleP65OnMs_Code_Answer = (_value) => {
+  handleCubicScanMs_Answer = (_value) => {
     if (_value) {
       this.setState({
-        renderP65OnMs_Code_Questions: false,
-        p65OnMs_Code_Answer: true,
+        renderCubicScanMs: false,
+        p65OnMs_Code_Answer: _value,
       });
       alert("next question");
     } else {
       this.setState({
-        renderP65OnMs_Code_Questions: false,
-        p65OnMs_Code_Answer: false,
+        renderCubicScanMs: false,
+        p65OnMs_Code_Answer: _value,
       });
       alert("next question");
     }
@@ -407,12 +410,44 @@ class MSBoxQuestions extends Component {
           <Button
             title="null"
             color={COLORS.error}
-            onPress={() => this.handleP65OnMs_Code_Answer(false)}
+            onPress={() => this.handleCubicScanMs_Answer(false)}
           />
           <Button
             title="Done"
             color={COLORS.secondary}
-            onPress={() => this.handleP65OnMs_Code_Answer(true)}
+            onPress={() => this.handleCubicScanMs_Answer(true)}
+          />
+        </ActionContainer>
+      </>
+    );
+  };
+  ////////////////////////////////////////////////////////////
+  handleQualityMsPackAnswer = (_value) => {
+    if (_value) {
+      this.setState({
+        renderCubicScanMs: false,
+        p65OnMs_Code_Answer: _value,
+      });
+      alert("next question");
+    } else {
+      this.setState({
+        renderCubicScanMs: false,
+        p65OnMs_Code_Answer: _value,
+      });
+      alert("next question");
+    }
+  };
+
+  renderQualityMsPack = () => {
+    return (
+      <>
+        <QuestionText>The quality of the packaging</QuestionText>
+
+        <ActionContainer>
+          <Button
+            title="null"
+            color={COLORS.error}
+            onPress={() => this.handleCubicScanMs_Answer(false)}
           />
         </ActionContainer>
       </>
@@ -436,6 +471,8 @@ class MSBoxQuestions extends Component {
         {this.state.renderP65OnMs_Questions && this.renderP65OnMs_Questions()}
         {this.state.renderP65OnMs_Code_Questions &&
           this.renderP65OnMs_Code_Questions()}
+        {this.state.renderCubicScanMs && this.renderCubicScanMs()}
+        {this.state.renderQualityMsPack && this.renderQualityMsPack()}
       </Container>
     );
   }
